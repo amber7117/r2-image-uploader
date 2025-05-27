@@ -1,0 +1,36 @@
+name = "r2-image-uploader"
+# 默认为 Production 环境
+main = "dist/app.mjs"
+minify = true
+compatibility_date = "2024-10-20"
+compatibility_flags = ["nodejs_compat"]
+
+[[r2_buckets]]
+binding = "R2"
+bucket_name = "hitonews2"
+[[d1_databases]]
+binding = "D1"
+database_name = "r2-image-uploader-d1"
+database_id = "98cb0962-3493-45ee-9b5d-1ba41d7c9ee7"
+
+[vars]
+R2_BUCKET_PREFIX = 'images/'
+MAX_BODY_SIZE = 10485760
+MAX_UPLOAD_COUNT = 100
+
+[env.dev]
+# Development 环境配置
+main = "src/app.ts"
+minify = false
+
+[[env.dev.r2_buckets]]
+binding = "R2"
+bucket_name = "cmyr-oss"
+[[env.dev.d1_databases]]
+binding = "D1"
+database_name = "image-meta"
+database_id = ""
+
+[observability]
+enabled = true
+head_sampling_rate = 1 # optional. default = 1.
